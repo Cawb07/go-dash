@@ -66,6 +66,7 @@ type MPD struct {
 	MediaPresentationDuration *string `xml:"mediaPresentationDuration,attr"`
 	MinBufferTime             *string `xml:"minBufferTime,attr"`
 	AvailabilityStartTime     *string `xml:"availabilityStartTime,attr,omitempty"`
+	PublishTime               *string `xml:"publishTime,attr,omitempty"`
 	MinimumUpdatePeriod       *string `xml:"minimumUpdatePeriod,attr"`
 	BaseURL                   string  `xml:"BaseURL,omitempty"`
 	period                    *Period
