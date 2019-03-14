@@ -291,12 +291,17 @@ type PlayreadyContentProtection struct {
 	ContentProtection
 	PlayreadyXMLNS *string `xml:"mspr,attr,omitempty"`
 	PRO            *string `xml:"pro,omitempty"`
-	PSSH           *string `xml:"pssh,omitempty"`
+	PSSH           *Pssh   `xml:"pssh,omitempty"`
 }
 
 type WidevineContentProtection struct {
 	ContentProtection
-	PSSH *string `xml:"pssh,omitempty"`
+	PSSH *Pssh `xml:"pssh,omitempty"`
+}
+
+type Pssh struct {
+	Cenc *string  `xml:"cenc,attr"`  // Default: urn:mpeg:cenc:2013
+	Value *string `xml:",chardata"`
 }
 
 type ContentProtectionMarshal struct {
@@ -316,12 +321,17 @@ type PlayreadyContentProtectionMarshal struct {
 	ContentProtectionMarshal
 	PlayreadyXMLNS *string `xml:"xmlns:mspr,attr,omitempty"`
 	PRO            *string `xml:"mspr:pro,omitempty"`
-	PSSH           *string `xml:"cenc:pssh,omitempty"`
+	PSSH           *PsshMarshal   `xml:"cenc:pssh,omitempty"`
 }
 
 type WidevineContentProtectionMarshal struct {
 	ContentProtectionMarshal
-	PSSH *string `xml:"cenc:pssh,omitempty"`
+	PSSH *PsshMarshal `xml:"cenc:pssh,omitempty"`
+}
+
+type PsshMarshal struct {
+	Cenc *string `xml:"xmlns:cenc,attr"`  // Default: urn:mpeg:cenc:2013
+	Value *string `xml:",chardata"`
 }
 
 func (s ContentProtection) ContentProtected() {}
@@ -366,7 +376,7 @@ func (s PlayreadyContentProtection) MarshalXML(e *xml.Encoder, start xml.StartEl
 		},
 		s.PlayreadyXMLNS,
 		s.PRO,
-		s.PSSH,
+		&PsshMarshal{s.PSSH.Cenc, s.PSSH.Value},
 	})
 	if err != nil {
 		return err
@@ -382,7 +392,7 @@ func (s WidevineContentProtection) MarshalXML(e *xml.Encoder, start xml.StartEle
 			s.SchemeIDURI,
 			s.XMLNS,
 		},
-		s.PSSH,
+		&PsshMarshal{s.PSSH.Cenc, s.PSSH.Value},
 	})
 	if err != nil {
 		return err
@@ -783,7 +793,7 @@ func NewWidevineContentProtection(wvHeader []byte) (*WidevineContentProtection, 
 		}
 
 		psshB64 := base64.StdEncoding.EncodeToString(psshBox)
-		cp.PSSH = &psshB64
+		cp.PSSH.Value = &psshB64
 	}
 	return cp, nil
 }
@@ -855,7 +865,7 @@ func (as *AdaptationSet) AddNewContentProtectionSchemePlayreadyWithPSSH(pro stri
 	if err != nil {
 		return nil, err
 	}
-	cp.PSSH = Strptr(base64.StdEncoding.EncodeToString(psshBox))
+	cp.PSSH.Value = Strptr(base64.StdEncoding.EncodeToString(psshBox))
 
 	err = as.AddContentProtection(cp)
 	if err != nil {
@@ -887,7 +897,7 @@ func (as *AdaptationSet) AddNewContentProtectionSchemePlayreadyV10WithPSSH(pro s
 	if err != nil {
 		return nil, err
 	}
-	cp.PSSH = Strptr(base64.StdEncoding.EncodeToString(psshBox))
+	cp.PSSH.Value = Strptr(base64.StdEncoding.EncodeToString(psshBox))
 
 	err = as.AddContentProtection(cp)
 	if err != nil {
