@@ -74,14 +74,35 @@ type MPD struct {
 }
 
 type Period struct {
-	ID              string           `xml:"id,attr,omitempty"`
-	Duration        Duration         `xml:"duration,attr,omitempty"`
-	Start           Duration         `xml:"start,attr,omitempty"`
-	BaseURL         string           `xml:"BaseURL,omitempty"`
-	SegmentBase     *SegmentBase     `xml:"SegmentBase,omitempty"`
-	SegmentList     *SegmentList     `xml:"SegmentList,omitempty"`
-	SegmentTemplate *SegmentTemplate `xml:"SegmentTemplate,omitempty"`
-	AdaptationSets  []*AdaptationSet `xml:"AdaptationSet,omitempty"`
+	ID                 string           `xml:"id,attr,omitempty"`
+	Duration           Duration         `xml:"duration,attr,omitempty"`
+	Start              Duration         `xml:"start,attr,omitempty"`
+	BitStreamSwitching string           `xml:"bitstreamSwitching,attr,omitempty"`
+	BaseURL            string           `xml:"BaseURL,omitempty"`
+	EventStream        *EventStream     `xml:"EventStream,omitempty"`
+	SegmentBase        *SegmentBase     `xml:"SegmentBase,omitempty"`
+	SegmentList        *SegmentList     `xml:"SegmentList,omitempty"`
+	SegmentTemplate    *SegmentTemplate `xml:"SegmentTemplate,omitempty"`
+	AdaptationSets     []*AdaptationSet `xml:"AdaptationSet,omitempty"`
+}
+
+type EventStream struct {
+	SchemeIDURI *string `xml:"schemeIdUri,attr"`
+	Value       *string `xml:"value,attr"`
+	Timescale   *int64  `xml:"timescale,attr"`
+	Event       []*Event  `xml:"Event,omitempty"`
+}
+
+type Event struct {
+	PresentationTime *string `xml:"presentationTime,attr"`
+	Duration         *int64  `xml:"duration,attr"`
+	ID               *string `xml:"id,attr"`
+	Signal           *Signal `xml:"Signal,omitempty"`
+}
+
+type Signal struct {
+	XMLNS  *string `xml:"xmlns,attr"`
+	Binary *string `xml:"Binary,omitempty"`
 }
 
 type DescriptorType struct {
