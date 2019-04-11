@@ -3,8 +3,8 @@ package mpd
 type SegmentBase struct {
 	Initialization           *URL     `xml:"Initialization,omitempty"`
 	RepresentationIndex      *URL     `xml:"RepresentationIndex,omitempty"`
-	Timescale                *uint32  `xml:"timescale,attr,omitempty"`
-	PresentationTimeOffset   *uint64  `xml:"presentationTimeOffset,attr,omitempty"`
+	Timescale                *int32   `xml:"timescale,attr,omitempty"`
+	PresentationTimeOffset   *int64   `xml:"presentationTimeOffset,attr,omitempty"`
 	IndexRange               *string  `xml:"indexRange,attr,omitempty"`
 	IndexRangeExact          *bool    `xml:"indexRangeExact,attr,omitempty"`
 	AvailabilityTimeOffset   *float32 `xml:"availabilityTimeOffset,attr,omitempty"`
@@ -15,8 +15,8 @@ type MultipleSegmentBase struct {
 	SegmentBase
 	SegmentTimeline    *SegmentTimeline `xml:"SegmentTimeline,omitempty"`
 	BitstreamSwitching *URL             `xml:"BitstreamSwitching,omitempty"`
-	Duration           *uint32          `xml:"duration,attr,omitempty"`
-	StartNumber        *uint32          `xml:"startNumber,attr,omitempty"`
+	Duration           *int32           `xml:"duration,attr,omitempty"`
+	StartNumber        *int32           `xml:"startNumber,attr,omitempty"`
 }
 
 type SegmentList struct {
@@ -36,9 +36,9 @@ type SegmentTimeline struct {
 }
 
 type SegmentTimelineSegment struct {
-	StartTime   *uint64 `xml:"t,attr,omitempty"`
-	Duration    uint64  `xml:"d,attr"`
-	RepeatCount *int    `xml:"r,attr,omitempty"`
+	StartTime   *int64 `xml:"t,attr,omitempty" datastore:",noindex"`
+	Duration    int64  `xml:"d,attr" datastore:",noindex"`
+	RepeatCount *int   `xml:"r,attr,omitempty" datastore:",noindex"`
 }
 
 type URL struct {

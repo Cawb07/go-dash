@@ -60,49 +60,49 @@ var (
 )
 
 type MPD struct {
-	XMLNs                     *string `xml:"xmlns,attr"`
-	Profiles                  *string `xml:"profiles,attr"`
-	Type                      *string `xml:"type,attr"`
-	MediaPresentationDuration *string `xml:"mediaPresentationDuration,attr"`
-	MinBufferTime             *string `xml:"minBufferTime,attr"`
-	AvailabilityStartTime     *string `xml:"availabilityStartTime,attr,omitempty"`
-	PublishTime               *string `xml:"publishTime,attr,omitempty"`
-	MinimumUpdatePeriod       *string `xml:"minimumUpdatePeriod,attr"`
-	BaseURL                   string  `xml:"BaseURL,omitempty"`
+	XMLNs                     *string `xml:"xmlns,attr" datastore:",noindex"`
+	Profiles                  *string `xml:"profiles,attr" datastore:",noindex"`
+	Type                      *string `xml:"type,attr" datastore:",noindex"`
+	MediaPresentationDuration *string `xml:"mediaPresentationDuration,attr" datastore:",noindex"`
+	MinBufferTime             *string `xml:"minBufferTime,attr" datastore:",noindex"`
+	AvailabilityStartTime     *string `xml:"availabilityStartTime,attr,omitempty" datastore:",noindex"`
+	PublishTime               *string `xml:"publishTime,attr,omitempty" datastore:",noindex"`
+	MinimumUpdatePeriod       *string `xml:"minimumUpdatePeriod,attr" datastore:",noindex"`
+	BaseURL                   string  `xml:"BaseURL,omitempty" datastore:",noindex"`
 	period                    *Period
-	Periods                   []*Period `xml:"Period,omitempty"`
+	Periods                   []*Period `xml:"Period,omitempty" datastore:",noindex"`
 }
 
 type Period struct {
-	ID                 string           `xml:"id,attr,omitempty"`
-	Duration           Duration         `xml:"duration,attr,omitempty"`
-	Start              Duration         `xml:"start,attr,omitempty"`
-	BitStreamSwitching string           `xml:"bitstreamSwitching,attr,omitempty"`
-	BaseURL            string           `xml:"BaseURL,omitempty"`
-	EventStream        *EventStream     `xml:"EventStream,omitempty"`
-	SegmentBase        *SegmentBase     `xml:"SegmentBase,omitempty"`
-	SegmentList        *SegmentList     `xml:"SegmentList,omitempty"`
-	SegmentTemplate    *SegmentTemplate `xml:"SegmentTemplate,omitempty"`
-	AdaptationSets     []*AdaptationSet `xml:"AdaptationSet,omitempty"`
+	ID                 string           `xml:"id,attr,omitempty" datastore:",noindex"`
+	Duration           Duration         `xml:"duration,attr,omitempty" datastore:",noindex"`
+	Start              Duration         `xml:"start,attr,omitempty" datastore:",noindex"`
+	BitStreamSwitching string           `xml:"bitstreamSwitching,attr,omitempty" datastore:",noindex"`
+	BaseURL            string           `xml:"BaseURL,omitempty" datastore:",noindex"`
+	EventStream        *EventStream     `xml:"EventStream,omitempty" datastore:",noindex"`
+	SegmentBase        *SegmentBase     `xml:"SegmentBase,omitempty" datastore:",noindex"`
+	SegmentList        *SegmentList     `xml:"SegmentList,omitempty" datastore:",noindex"`
+	SegmentTemplate    *SegmentTemplate `xml:"SegmentTemplate,omitempty" datastore:",noindex"`
+	AdaptationSets     []*AdaptationSet `xml:"AdaptationSet,omitempty" datastore:",noindex"`
 }
 
 type EventStream struct {
-	SchemeIDURI *string `xml:"schemeIdUri,attr"`
-	Value       *string `xml:"value,attr"`
-	Timescale   *int64  `xml:"timescale,attr"`
-	Event       []*Event  `xml:"Event,omitempty"`
+	SchemeIDURI *string  `xml:"schemeIdUri,attr" datastore:",noindex"`
+	Value       *string  `xml:"value,attr" datastore:",noindex"`
+	Timescale   *int64   `xml:"timescale,attr" datastore:",noindex"`
+	Event       []*Event `xml:"Event,omitempty" datastore:",noindex"`
 }
 
 type Event struct {
-	PresentationTime *string `xml:"presentationTime,attr"`
-	Duration         *int64  `xml:"duration,attr"`
-	ID               *string `xml:"id,attr"`
-	Signal           *Signal `xml:"Signal,omitempty"`
+	PresentationTime *string `xml:"presentationTime,attr" datastore:",noindex"`
+	Duration         *int64  `xml:"duration,attr" datastore:",noindex"`
+	ID               *string `xml:"id,attr" datastore:",noindex"`
+	Signal           *Signal `xml:"Signal,omitempty" datastore:",noindex"`
 }
 
 type Signal struct {
-	XMLNS  *string `xml:"xmlns,attr"`
-	Binary *string `xml:"Binary,omitempty"`
+	XMLNS  *string `xml:"xmlns,attr" datastore:",noindex"`
+	Binary *string `xml:"Binary,omitempty" datastore:",noindex"`
 }
 
 type DescriptorType struct {
@@ -113,169 +113,169 @@ type DescriptorType struct {
 
 // ISO 23009-1-2014 5.3.7
 type CommonAttributesAndElements struct {
-	Profiles                  *string               `xml:"profiles,attr"`
-	Width                     *string               `xml:"width,attr"`
-	Height                    *string               `xml:"height,attr"`
-	Sar                       *string               `xml:"sar,attr"`
-	FrameRate                 *string               `xml:"frameRate,attr"`
-	AudioSamplingRate         *string               `xml:"audioSamplingRate,attr"`
-	MimeType                  *string               `xml:"mimeType,attr"`
-	SegmentProfiles           *string               `xml:"segmentProfiles,attr"`
-	Codecs                    *string               `xml:"codecs,attr"`
-	MaximumSAPPeriod          *string               `xml:"maximumSAPPeriod,attr"`
-	StartWithSAP              *int64                `xml:"startWithSAP,attr"`
-	MaxPlayoutRate            *string               `xml:"maxPlayoutRate,attr"`
-	ScanType                  *string               `xml:"scanType,attr"`
-	FramePacking              *DescriptorType       `xml:"framePacking,attr"`
-	AudioChannelConfiguration *DescriptorType       `xml:"audioChannelConfiguration,attr"`
-	ContentProtection         []ContentProtectioner `xml:"ContentProtection,omitempty"`
-	EssentialProperty         *DescriptorType       `xml:"essentialProperty,attr"`
-	SupplementalProperty      *DescriptorType       `xml:"supplmentalProperty,attr"`
-	InbandEventStream         *DescriptorType       `xml:"inbandEventStream,attr"`
+	Profiles                  *string              `xml:"profiles,attr"`
+	Width                     *string              `xml:"width,attr"`
+	Height                    *string              `xml:"height,attr"`
+	Sar                       *string              `xml:"sar,attr"`
+	FrameRate                 *string              `xml:"frameRate,attr"`
+	AudioSamplingRate         *string              `xml:"audioSamplingRate,attr"`
+	MimeType                  *string              `xml:"mimeType,attr"`
+	SegmentProfiles           *string              `xml:"segmentProfiles,attr"`
+	Codecs                    *string              `xml:"codecs,attr"`
+	MaximumSAPPeriod          *string              `xml:"maximumSAPPeriod,attr"`
+	StartWithSAP              *int64               `xml:"startWithSAP,attr"`
+	MaxPlayoutRate            *string              `xml:"maxPlayoutRate,attr"`
+	ScanType                  *string              `xml:"scanType,attr"`
+	FramePacking              *DescriptorType      `xml:"framePacking,attr"`
+	AudioChannelConfiguration *DescriptorType      `xml:"audioChannelConfiguration,attr"`
+	ContentProtection         []*ContentProtection `xml:"ContentProtection,omitempty"`
+	EssentialProperty         *DescriptorType      `xml:"essentialProperty,attr"`
+	SupplementalProperty      *DescriptorType      `xml:"supplmentalProperty,attr"`
+	InbandEventStream         *DescriptorType      `xml:"inbandEventStream,attr"`
 }
 
 type AdaptationSet struct {
 	CommonAttributesAndElements
-	XMLName           xml.Name              `xml:"AdaptationSet"`
-	ID                *string               `xml:"id,attr"`
-	SegmentAlignment  *bool                 `xml:"segmentAlignment,attr"`
-	Lang              *string               `xml:"lang,attr"`
-	Group             *string               `xml:"group,attr"`
-	PAR               *string               `xml:"par,attr"`
-	MinBandwidth      *string               `xml:"minBandwidth,attr"`
-	MaxBandwidth      *string               `xml:"maxBandwidth,attr"`
-	MinWidth          *string               `xml:"minWidth,attr"`
-	MaxWidth          *string               `xml:"maxWidth,attr"`
-	ContentProtection []ContentProtectioner `xml:"ContentProtection,omitempty"` // Common attribute, can be deprecated here
-	Roles             []*Role               `xml:"Role,omitempty"`
-	SegmentBase       *SegmentBase          `xml:"SegmentBase,omitempty"`
-	SegmentList       *SegmentList          `xml:"SegmentList,omitempty"`
-	SegmentTemplate   *SegmentTemplate      `xml:"SegmentTemplate,omitempty"` // Live Profile Only
-	Representations   []*Representation     `xml:"Representation,omitempty"`
+	XMLName           xml.Name             `xml:"AdaptationSet"`
+	ID                *string              `xml:"id,attr" datastore:",noindex"`
+	SegmentAlignment  *bool                `xml:"segmentAlignment,attr" datastore:",noindex"`
+	Lang              *string              `xml:"lang,attr" datastore:",noindex"`
+	Group             *string              `xml:"group,attr" datastore:",noindex"`
+	PAR               *string              `xml:"par,attr" datastore:",noindex"`
+	MinBandwidth      *string              `xml:"minBandwidth,attr" datastore:",noindex"`
+	MaxBandwidth      *string              `xml:"maxBandwidth,attr" datastore:",noindex"`
+	MinWidth          *string              `xml:"minWidth,attr" datastore:",noindex"`
+	MaxWidth          *string              `xml:"maxWidth,attr" datastore:",noindex"`
+	ContentProtection []*ContentProtection `xml:"ContentProtection,omitempty"` // Common attribute, can be deprecated here
+	Roles             []*Role              `xml:"Role,omitempty" datastore:",noindex"`
+	SegmentBase       *SegmentBase         `xml:"SegmentBase,omitempty" datastore:",noindex"`
+	SegmentList       *SegmentList         `xml:"SegmentList,omitempty" datastore:",noindex"`
+	SegmentTemplate   *SegmentTemplate     `xml:"SegmentTemplate,omitempty" datastore:",noindex"` // Live Profile Only
+	Representations   []*Representation    `xml:"Representation,omitempty" datastore:",noindex"`
 }
 
-func (as *AdaptationSet) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-
-	adaptationSet := struct {
-		CommonAttributesAndElements
-		XMLName           xml.Name              `xml:"AdaptationSet"`
-		ID                *string               `xml:"id,attr"`
-		SegmentAlignment  *bool                 `xml:"segmentAlignment,attr"`
-		Lang              *string               `xml:"lang,attr"`
-		Group             *string               `xml:"group,attr"`
-		PAR               *string               `xml:"par,attr"`
-		MinBandwidth      *string               `xml:"minBandwidth,attr"`
-		MaxBandwidth      *string               `xml:"maxBandwidth,attr"`
-		MinWidth          *string               `xml:"minWidth,attr"`
-		MaxWidth          *string               `xml:"maxWidth,attr"`
-		ContentProtection []ContentProtectioner `xml:"ContentProtection,omitempty"` // Common attribute, can be deprecated here
-		Roles             []*Role               `xml:"Role,omitempty"`
-		SegmentBase       *SegmentBase          `xml:"SegmentBase,omitempty"`
-		SegmentList       *SegmentList          `xml:"SegmentList,omitempty"`
-		SegmentTemplate   *SegmentTemplate      `xml:"SegmentTemplate,omitempty"` // Live Profile Only
-		Representations   []*Representation     `xml:"Representation,omitempty"`
-	}{}
-
-	var (
-		contentProtectionTags []ContentProtectioner
-		roles []*Role
-		segmentBase *SegmentBase
-		segmentList *SegmentList
-		segmentTemplate *SegmentTemplate
-		representations []*Representation
-	)
-
-	// decode inner elements
-	for {
-		t, err := d.Token()
-		if err != nil {
-			return err
-		}
-
-		switch tt := t.(type) {
-		case xml.StartElement:
-			switch tt.Name.Local {
-			case "ContentProtection":
-				var (
-					schemeUri string
-					cp ContentProtectioner
-				)
-
-				for _, attr := range tt.Attr {
-					if attr.Name.Local == "schemeIdUri" {
-						schemeUri = attr.Value
-					}
-				}
-				switch schemeUri {
-				case CONTENT_PROTECTION_ROOT_SCHEME_ID_URI:
-					cp = new(CENCContentProtection)
-				case CONTENT_PROTECTION_PLAYREADY_SCHEME_ID:
-					cp = new(PlayreadyContentProtection)
-				case CONTENT_PROTECTION_WIDEVINE_SCHEME_ID:
-					cp = new(WidevineContentProtection)
-				default:
-					cp = new(ContentProtection)
-				}
-
-				err = d.DecodeElement(cp, &tt)
-				if err != nil {
-					return err
-				}
-				contentProtectionTags = append(contentProtectionTags, cp)
-			case "Role":
-				rl := new(Role)
-				err = d.DecodeElement(rl, &tt)
-				if err != nil {
-					return err
-				}
-				roles = append(roles, rl)
-			case "SegmentBase":
-				sb := new(SegmentBase)
-				err = d.DecodeElement(sb, &tt)
-				if err != nil {
-					return err
-				}
-				segmentBase = sb
-			case "SegmentList":
-				sl := new(SegmentList)
-				err = d.DecodeElement(sl, &tt)
-				if err != nil {
-					return err
-				}
-				segmentList = sl
-			case "SegmentTemplate":
-				st := new(SegmentTemplate)
-				err = d.DecodeElement(st, &tt)
-				if err != nil {
-					return err
-				}
-				segmentTemplate = st
-			case "Representation":
-				rp := new(Representation)
-				err = d.DecodeElement(rp, &tt)
-				if err != nil {
-					return err
-				}
-				representations = append(representations, rp)
-			default:
-				return errors.New("Unrecognized element in AdaptationSet")
-			}
-		case xml.EndElement:
-			if tt == start.End() {
-				d.DecodeElement(&adaptationSet, &start)
-				*as = adaptationSet
-				as.ContentProtection = contentProtectionTags
-				as.Roles = roles
-				as.SegmentBase = segmentBase
-				as.SegmentList = segmentList
-				as.SegmentTemplate = segmentTemplate
-				as.Representations = representations
-				return nil
-			}
-		}
-
-	}
-}
+//func (as *AdaptationSet) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+//
+//	adaptationSet := struct {
+//		CommonAttributesAndElements
+//		XMLName           xml.Name              `xml:"AdaptationSet"`
+//		ID                *string               `xml:"id,attr" datastore:",noindex"`
+//		SegmentAlignment  *bool                 `xml:"segmentAlignment,attr" datastore:",noindex"`
+//		Lang              *string               `xml:"lang,attr" datastore:",noindex"`
+//		Group             *string               `xml:"group,attr" datastore:",noindex"`
+//		PAR               *string               `xml:"par,attr" datastore:",noindex"`
+//		MinBandwidth      *string               `xml:"minBandwidth,attr" datastore:",noindex"`
+//		MaxBandwidth      *string               `xml:"maxBandwidth,attr" datastore:",noindex"`
+//		MinWidth          *string               `xml:"minWidth,attr" datastore:",noindex"`
+//		MaxWidth          *string               `xml:"maxWidth,attr" datastore:",noindex"`
+//		ContentProtection []ContentProtectioner `xml:"ContentProtection,omitempty" datastore:",noindex"` // Common attribute, can be deprecated here
+//		Roles             []*Role               `xml:"Role,omitempty" datastore:",noindex"`
+//		SegmentBase       *SegmentBase          `xml:"SegmentBase,omitempty" datastore:",noindex"`
+//		SegmentList       *SegmentList          `xml:"SegmentList,omitempty" datastore:",noindex"`
+//		SegmentTemplate   *SegmentTemplate      `xml:"SegmentTemplate,omitempty" datastore:",noindex"` // Live Profile Only
+//		Representations   []*Representation     `xml:"Representation,omitempty" datastore:",noindex"`
+//	}{}
+//
+//	var (
+//		contentProtectionTags []ContentProtectioner
+//		roles []*Role
+//		segmentBase *SegmentBase
+//		segmentList *SegmentList
+//		segmentTemplate *SegmentTemplate
+//		representations []*Representation
+//	)
+//
+//	// decode inner elements
+//	for {
+//		t, err := d.Token()
+//		if err != nil {
+//			return err
+//		}
+//
+//		switch tt := t.(type) {
+//		case xml.StartElement:
+//			switch tt.Name.Local {
+//			case "ContentProtection":
+//				var (
+//					schemeUri string
+//					cp ContentProtectioner
+//				)
+//
+//				for _, attr := range tt.Attr {
+//					if attr.Name.Local == "schemeIdUri" {
+//						schemeUri = attr.Value
+//					}
+//				}
+//				switch schemeUri {
+//				case CONTENT_PROTECTION_ROOT_SCHEME_ID_URI:
+//					cp = new(CENCContentProtection)
+//				case CONTENT_PROTECTION_PLAYREADY_SCHEME_ID:
+//					cp = new(PlayreadyContentProtection)
+//				case CONTENT_PROTECTION_WIDEVINE_SCHEME_ID:
+//					cp = new(WidevineContentProtection)
+//				default:
+//					cp = new(ContentProtection)
+//				}
+//
+//				err = d.DecodeElement(cp, &tt)
+//				if err != nil {
+//					return err
+//				}
+//				contentProtectionTags = append(contentProtectionTags, cp)
+//			case "Role":
+//				rl := new(Role)
+//				err = d.DecodeElement(rl, &tt)
+//				if err != nil {
+//					return err
+//				}
+//				roles = append(roles, rl)
+//			case "SegmentBase":
+//				sb := new(SegmentBase)
+//				err = d.DecodeElement(sb, &tt)
+//				if err != nil {
+//					return err
+//				}
+//				segmentBase = sb
+//			case "SegmentList":
+//				sl := new(SegmentList)
+//				err = d.DecodeElement(sl, &tt)
+//				if err != nil {
+//					return err
+//				}
+//				segmentList = sl
+//			case "SegmentTemplate":
+//				st := new(SegmentTemplate)
+//				err = d.DecodeElement(st, &tt)
+//				if err != nil {
+//					return err
+//				}
+//				segmentTemplate = st
+//			case "Representation":
+//				rp := new(Representation)
+//				err = d.DecodeElement(rp, &tt)
+//				if err != nil {
+//					return err
+//				}
+//				representations = append(representations, rp)
+//			default:
+//				return errors.New("Unrecognized element in AdaptationSet")
+//			}
+//		case xml.EndElement:
+//			if tt == start.End() {
+//				d.DecodeElement(&adaptationSet, &start)
+//				*as = adaptationSet
+//				as.ContentProtection = contentProtectionTags
+//				as.Roles = roles
+//				as.SegmentBase = segmentBase
+//				as.SegmentList = segmentList
+//				as.SegmentTemplate = segmentTemplate
+//				as.Representations = representations
+//				return nil
+//			}
+//		}
+//
+//	}
+//}
 
 // Constants for DRM / ContentProtection
 const (
@@ -296,40 +296,50 @@ type ContentProtectioner interface {
 }
 
 type ContentProtection struct {
-	AdaptationSet *AdaptationSet `xml:"-"`
-	XMLName       xml.Name       `xml:"ContentProtection"`
-	SchemeIDURI   *string        `xml:"schemeIdUri,attr"` // Default: urn:mpeg:dash:mp4protection:2011
-	XMLNS         *string        `xml:"cenc,attr"`  // Default: urn:mpeg:cenc:2013
+	AdaptationSet  *AdaptationSet `xml:"-"`
+	XMLName        xml.Name       `xml:"ContentProtection" datastore:",noindex"`
+	SchemeIDURI    *string        `xml:"schemeIdUri,attr" datastore:",noindex"` // Default: urn:mpeg:dash:mp4protection:2011
+	XMLNS          *string        `xml:"cenc,attr" datastore:",noindex"`        // Default: urn:mpeg:cenc:2013
+	DefaultKID     *string        `xml:"default_KID,attr,omitempty" datastore:",noindex" `
+	PlayreadyXMLNS *string        `xml:"mspr,attr,omitempty" datastore:",noindex"`
+	PRO            *string        `xml:"pro,omitempty" datastore:",noindex"`
+	Value          *string        `xml:"value,attr,omitempty" datastore:",noindex"` // Default: cenc
+	PSSH           *Pssh          `xml:"pssh,omitempty" datastore:",noindex"`
 }
 
 type CENCContentProtection struct {
 	ContentProtection
-	DefaultKID *string `xml:"default_KID,attr"`
-	Value      *string `xml:"value,attr"` // Default: cenc
+	DefaultKID *string `xml:"default_KID,attr" datastore:",noindex" `
+	Value      *string `xml:"value,attr" datastore:",noindex"` // Default: cenc
 }
 
 type PlayreadyContentProtection struct {
 	ContentProtection
-	PlayreadyXMLNS *string `xml:"mspr,attr,omitempty"`
-	PRO            *string `xml:"pro,omitempty"`
-	PSSH           *Pssh   `xml:"pssh,omitempty"`
+	PlayreadyXMLNS *string `xml:"mspr,attr,omitempty" datastore:",noindex"`
+	PRO            *string `xml:"pro,omitempty" datastore:",noindex"`
+	PSSH           *Pssh   `xml:"pssh,omitempty" datastore:",noindex"`
 }
 
 type WidevineContentProtection struct {
 	ContentProtection
-	PSSH *Pssh `xml:"pssh,omitempty"`
+	PSSH *Pssh `xml:"pssh,omitempty" datastore:",noindex"`
 }
 
 type Pssh struct {
-	Cenc *string  `xml:"cenc,attr"`  // Default: urn:mpeg:cenc:2013
-	Value *string `xml:",chardata"`
+	Cenc  *string `xml:"cenc,attr" datastore:",noindex"` // Default: urn:mpeg:cenc:2013
+	Value *string `xml:",chardata" datastore:",noindex"`
 }
 
 type ContentProtectionMarshal struct {
-	AdaptationSet *AdaptationSet `xml:"-"`
-	XMLName       xml.Name       `xml:"ContentProtection"`
-	SchemeIDURI   *string        `xml:"schemeIdUri,attr"` // Default: urn:mpeg:dash:mp4protection:2011
-	XMLNS         *string        `xml:"xmlns:cenc,attr"`  // Default: urn:mpeg:cenc:2013
+	AdaptationSet  *AdaptationSet `xml:"-"`
+	XMLName        xml.Name       `xml:"ContentProtection"`
+	SchemeIDURI    *string        `xml:"schemeIdUri,attr"` // Default: urn:mpeg:dash:mp4protection:2011
+	XMLNS          *string        `xml:"xmlns:cenc,attr"`  // Default: urn:mpeg:cenc:2013
+	DefaultKID     *string        `xml:"cenc:default_KID,attr"`
+	PlayreadyXMLNS *string        `xml:"xmlns:mspr,attr,omitempty"`
+	PRO            *string        `xml:"mspr:pro,omitempty"`
+	Value          *string        `xml:"value,attr"` // Default: cenc
+	PSSH           *PsshMarshal   `xml:"cenc:pssh,omitempty"`
 }
 
 type CENCContentProtectionMarshal struct {
@@ -340,9 +350,9 @@ type CENCContentProtectionMarshal struct {
 
 type PlayreadyContentProtectionMarshal struct {
 	ContentProtectionMarshal
-	PlayreadyXMLNS *string `xml:"xmlns:mspr,attr,omitempty"`
-	PRO            *string `xml:"mspr:pro,omitempty"`
-	PSSH           *PsshMarshal   `xml:"cenc:pssh,omitempty"`
+	PlayreadyXMLNS *string      `xml:"xmlns:mspr,attr,omitempty"`
+	PRO            *string      `xml:"mspr:pro,omitempty"`
+	PSSH           *PsshMarshal `xml:"cenc:pssh,omitempty"`
 }
 
 type WidevineContentProtectionMarshal struct {
@@ -351,18 +361,30 @@ type WidevineContentProtectionMarshal struct {
 }
 
 type PsshMarshal struct {
-	Cenc *string `xml:"xmlns:cenc,attr"`  // Default: urn:mpeg:cenc:2013
+	Cenc  *string `xml:"xmlns:cenc,attr"` // Default: urn:mpeg:cenc:2013
 	Value *string `xml:",chardata"`
 }
 
 func (s ContentProtection) ContentProtected() {}
 
 func (s ContentProtection) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	var pssh *PsshMarshal
+	if s.PSSH != nil {
+		pssh = &PsshMarshal{}
+		pssh.Cenc = s.PSSH.Cenc
+		pssh.Value = s.PSSH.Value
+	}
+
 	err := e.Encode(&ContentProtectionMarshal{
 		s.AdaptationSet,
 		s.XMLName,
 		s.SchemeIDURI,
 		s.XMLNS,
+		s.DefaultKID,
+		s.PlayreadyXMLNS,
+		s.PRO,
+		s.Value,
+		pssh,
 	})
 	if err != nil {
 		return err
@@ -371,12 +393,24 @@ func (s ContentProtection) MarshalXML(e *xml.Encoder, start xml.StartElement) er
 }
 
 func (s CENCContentProtection) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	var pssh *PsshMarshal
+	if s.PSSH != nil {
+		pssh = &PsshMarshal{}
+		pssh.Cenc = s.PSSH.Cenc
+		pssh.Value = s.PSSH.Value
+	}
+
 	err := e.Encode(&CENCContentProtectionMarshal{
 		ContentProtectionMarshal{
 			s.AdaptationSet,
 			s.XMLName,
 			s.SchemeIDURI,
 			s.XMLNS,
+			s.DefaultKID,
+			s.PlayreadyXMLNS,
+			s.PRO,
+			s.Value,
+			pssh,
 		},
 		s.DefaultKID,
 		s.Value,
@@ -394,6 +428,11 @@ func (s PlayreadyContentProtection) MarshalXML(e *xml.Encoder, start xml.StartEl
 			s.XMLName,
 			s.SchemeIDURI,
 			s.XMLNS,
+			s.DefaultKID,
+			s.PlayreadyXMLNS,
+			s.PRO,
+			s.Value,
+			&PsshMarshal{s.PSSH.Cenc, s.PSSH.Value},
 		},
 		s.PlayreadyXMLNS,
 		s.PRO,
@@ -412,6 +451,11 @@ func (s WidevineContentProtection) MarshalXML(e *xml.Encoder, start xml.StartEle
 			s.XMLName,
 			s.SchemeIDURI,
 			s.XMLNS,
+			s.DefaultKID,
+			s.PlayreadyXMLNS,
+			s.PRO,
+			s.Value,
+			&PsshMarshal{s.PSSH.Cenc, s.PSSH.Value},
 		},
 		&PsshMarshal{s.PSSH.Cenc, s.PSSH.Value},
 	})
@@ -430,30 +474,30 @@ type Role struct {
 // Segment Template is for Live Profile Only
 type SegmentTemplate struct {
 	AdaptationSet          *AdaptationSet   `xml:"-"`
-	SegmentTimeline        *SegmentTimeline `xml:"SegmentTimeline,omitempty"`
-	PresentationTimeOffset *uint64          `xml:"presentationTimeOffset,attr,omitempty"`
-	Duration               *int64           `xml:"duration,attr"`
-	Initialization         *string          `xml:"initialization,attr"`
-	Media                  *string          `xml:"media,attr"`
-	StartNumber            *int64           `xml:"startNumber,attr"`
-	Timescale              *int64           `xml:"timescale,attr"`
+	SegmentTimeline        *SegmentTimeline `xml:"SegmentTimeline,omitempty" datastore:"-"`
+	PresentationTimeOffset *int64           `xml:"presentationTimeOffset,attr,omitempty" datastore:",noindex"`
+	Duration               *int64           `xml:"duration,attr" datastore:",noindex"`
+	Initialization         *string          `xml:"initialization,attr" datastore:",noindex"`
+	Media                  *string          `xml:"media,attr" datastore:",noindex"`
+	StartNumber            *int64           `xml:"startNumber,attr" datastore:",noindex"`
+	Timescale              *int64           `xml:"timescale,attr" datastore:",noindex"`
 }
 
 type Representation struct {
 	CommonAttributesAndElements
 	AdaptationSet             *AdaptationSet             `xml:"-"`
-	AudioChannelConfiguration *AudioChannelConfiguration `xml:"AudioChannelConfiguration,omitempty"`
-	AudioSamplingRate         *int64                     `xml:"audioSamplingRate,attr"`   // Audio
-	Bandwidth                 *int64                     `xml:"bandwidth,attr"`           // Audio + Video
-	Codecs                    *string                    `xml:"codecs,attr"`              // Audio + Video
-	FrameRate                 *string                    `xml:"frameRate,attr,omitempty"` // Video
-	Height                    *int64                     `xml:"height,attr"`              // Video
-	ID                        *string                    `xml:"id,attr"`                  // Audio + Video
-	Width                     *int64                     `xml:"width,attr"`               // Video
-	BaseURL                   *string                    `xml:"BaseURL,omitempty"`        // On-Demand Profile
-	SegmentBase               *SegmentBase               `xml:"SegmentBase,omitempty"`    // On-Demand Profile
-	SegmentList               *SegmentList               `xml:"SegmentList,omitempty"`
-	SegmentTemplate           *SegmentTemplate           `xml:"SegmentTemplate,omitempty"`
+	AudioChannelConfiguration *AudioChannelConfiguration `xml:"AudioChannelConfiguration,omitempty" datastore:",noindex"`
+	AudioSamplingRate         *int64                     `xml:"audioSamplingRate,attr" datastore:",noindex"`   // Audio
+	Bandwidth                 *int64                     `xml:"bandwidth,attr" datastore:",noindex"`           // Audio + Video
+	Codecs                    *string                    `xml:"codecs,attr" datastore:",noindex"`              // Audio + Video
+	FrameRate                 *string                    `xml:"frameRate,attr,omitempty" datastore:",noindex"` // Video
+	Height                    *int64                     `xml:"height,attr" datastore:",noindex"`              // Video
+	ID                        *string                    `xml:"id,attr" datastore:",noindex"`                  // Audio + Video
+	Width                     *int64                     `xml:"width,attr" datastore:",noindex"`               // Video
+	BaseURL                   *string                    `xml:"BaseURL,omitempty" datastore:",noindex"`        // On-Demand Profile
+	SegmentBase               *SegmentBase               `xml:"SegmentBase,omitempty" datastore:",noindex"`    // On-Demand Profile
+	SegmentList               *SegmentList               `xml:"SegmentList,omitempty" datastore:",noindex"`
+	SegmentTemplate           *SegmentTemplate           `xml:"SegmentTemplate,omitempty" datastore:",noindex"`
 }
 
 type AudioChannelConfiguration struct {
@@ -933,7 +977,12 @@ func (as *AdaptationSet) AddContentProtection(cp ContentProtectioner) error {
 		return ErrContentProtectionNil
 	}
 
-	as.ContentProtection = append(as.ContentProtection, cp)
+	contentProtection, ok := cp.(*ContentProtection)
+	if !ok {
+		return errors.New("failed Content Protection type assertion")
+	}
+
+	as.ContentProtection = append(as.ContentProtection, contentProtection)
 	return nil
 }
 
