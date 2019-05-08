@@ -38,7 +38,7 @@ type SegmentTimeline struct {
 type SegmentTimelineSegment struct {
 	StartTime   *int64 `xml:"t,attr,omitempty" datastore:",noindex"`
 	Duration    int64  `xml:"d,attr" datastore:",noindex"`
-	RepeatCount *int   `xml:"r,attr,omitempty" datastore:",noindex"`
+	RepeatCount *int   `xml:"r,attr,omitempty" datastore:",noindex,omitempty"`
 }
 
 type URL struct {
