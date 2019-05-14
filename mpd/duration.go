@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-type Duration time.Duration
+type Duration = time.Duration
 
 var (
 	rStart   = "^P"          // Must start with a 'P'
