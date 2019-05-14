@@ -14,6 +14,15 @@ import (
 
 type Duration time.Duration
 
+const (
+	Nanosecond  Duration = 1
+	Microsecond          = 1000 * Nanosecond
+	Millisecond          = 1000 * Microsecond
+	Second               = 1000 * Millisecond
+	Minute               = 60 * Second
+	Hour                 = 60 * Minute
+)
+
 var (
 	rStart   = "^P"          // Must start with a 'P'
 	rDays    = "(\\d+D)?"    // We only allow Days for durations, not Months or Years
@@ -25,6 +34,48 @@ var (
 )
 
 var xmlDurationRegex = regexp.MustCompile(rStart + rDays + rTime + rHours + rMinutes + rSeconds + rEnd)
+
+// Nanoseconds returns the duration as an integer nanosecond count.
+func (d Duration) Nanoseconds() int64 { return int64(d) }
+
+// These methods return float64 because the dominant
+// use case is for printing a floating point number like 1.5s, and
+// a truncation to integer would make them not useful in those cases.
+// Splitting the integer and fraction ourselves guarantees that
+// converting the returned float64 to an integer rounds the same
+// way that a pure integer conversion would have, even in cases
+// where, say, float64(d.Nanoseconds())/1e9 would have rounded
+// differently.
+
+// Seconds returns the duration as a floating point number of seconds.
+func (d Duration) Seconds() float64 {
+	sec := d / Second
+	nsec := d % Second
+	return float64(sec) + float64(nsec)/1e9
+}
+
+// Minutes returns the duration as a floating point number of minutes.
+func (d Duration) Minutes() float64 {
+	min := d / Minute
+	nsec := d % Minute
+	return float64(min) + float64(nsec)/(60*1e9)
+}
+
+// Hours returns the duration as a floating point number of hours.
+func (d Duration) Hours() float64 {
+	hour := d / Hour
+	nsec := d % Hour
+	return float64(hour) + float64(nsec)/(60*60*1e9)
+}
+
+// Truncate returns the result of rounding d toward zero to a multiple of m.
+// If m <= 0, Truncate returns d unchanged.
+func (d Duration) Truncate(m Duration) Duration {
+	if m <= 0 {
+		return d
+	}
+	return d - d%m
+}
 
 func (d Duration) MarshalXMLAttr(name xml.Name) (xml.Attr, error) {
 	return xml.Attr{Name: name, Value: d.String()}, nil
