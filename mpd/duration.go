@@ -126,6 +126,7 @@ func (d *Duration) String() string {
 				buf[w] = 'm'
 			}
 		*/
+		prec = 9
 		w, u = fmtFrac(buf[:w], u, prec)
 		w = fmtInt(buf[:w], u)
 	} else {
