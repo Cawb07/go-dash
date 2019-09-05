@@ -108,7 +108,7 @@ func (d *Duration) String() string {
 		var prec int
 		w--
 		buf[w] = 'S'
-		w--
+
 		if u == 0 {
 			return "PT0S"
 		}
